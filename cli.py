@@ -82,17 +82,17 @@ def menu():
     return user_option
 
 
-def make_request(option):
-    response = None
-    if option == 1:
-        response = requests.get("https://api.spacexdata.com/v3/launches/next")
-    elif option == 2:
-        response = requests.get("https://api.spacexdata.com/v3/launches/latest")
-    elif option == 3:
-        response = requests.get("https://api.spacexdata.com/v3/launches/upcoming")
-    elif option == 4:
-        response = requests.get("https://api.spacexdata.com/v3/launches/past")
+def get_request_url_by_option(option):
+    launches_url = ["next", "latest", "upcoming", "past"]
+    return "https://api.spacexdata.com/v3/launches/{}".format(launches_url[option - 1])
 
+
+def make_request(option):
+    params = {
+        "filter": "flight_number,mission_name,launch_date_utc,rocket/rocket_name,launch_site/site_name_long"
+    }
+    url = get_request_url_by_option(option)
+    response = requests.get(url, params=params)
     return response.json()
 
 
