@@ -88,10 +88,19 @@ def get_request_url_by_option(option):
     return "https://api.spacexdata.com/v3/launches/{}".format(launches_url[option - 1])
 
 
-def make_request(option):
+def get_query_params_by_option(option):
     params = {
-        "filter": "flight_number,mission_name,launch_date_utc,rocket/rocket_name,launch_site/site_name_long"
+        "filter": "flight_number,mission_name,launch_date_utc,rocket/rocket_name,launch_site/site_name_long",
+        "limit": 3,
     }
+    if option == 4:
+        params["order"] = "desc"
+
+    return params
+
+
+def make_request(option):
+    params = get_query_params_by_option(option)
     url = get_request_url_by_option(option)
     response = requests.get(url, params=params)
     return response.json()
