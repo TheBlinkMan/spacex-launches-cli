@@ -96,10 +96,23 @@ def make_request(option):
     return response.json()
 
 
+def get_header_by_option(option):
+    headers = [
+        "INFORMAÇÕES DO PRÓXIMO LANÇAMENTO",
+        "INFORMAÇÕES DO ÚLTIMO LANÇAMENTO",
+        "INFORMAÇÕES DOS PRÓXIMOS LANÇAMENTOS",
+        "INFORMAÇÕES DOS ÚLTIMOS LANÇAMENTOS",
+    ]
+    return headers[option - 1]
+
+
 def main():
     while True:
         user_option = menu()
         response = make_request(user_option)
+        print('\n')
+        print("\t"+get_header_by_option(user_option))
+        print('\n')
         pprint.pprint(response)
 
 
