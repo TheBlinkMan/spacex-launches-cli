@@ -2,6 +2,7 @@ import sys
 import requests
 import pprint
 import signal
+import datetime
 
 
 def signal_handler(signal, frame):
@@ -106,14 +107,35 @@ def get_header_by_option(option):
     return headers[option - 1]
 
 
+def print_launch(launch):
+    launch_date = datetime.datetime.strptime(
+        launch["launch_date_utc"], "%Y-%m-%dT%H:%M:%S.%fZ"
+    )
+    print("Número do Voo:", launch["flight_number"])
+    print("Missão:", launch["mission_name"])
+    print("Ano de Lançamento:", launch_date.year)
+    print("Data de Lançamento (UTC):", launch_date.strftime("%d-%m-%Y às %H:%M"))
+    print("Local de Lançamento:", launch["launch_site"]["site_name_long"])
+    print("Nome do Foguete:", launch["rocket"]["rocket_name"])
+
+
+def print_launches(launches):
+    if isinstance(launches, list):
+        for launch in launches:
+            print_launch(launch)
+            print("\n\n")
+    else:
+        print_launch(launches)
+
+
 def main():
     while True:
         user_option = menu()
         response = make_request(user_option)
-        print('\n')
-        print("\t"+get_header_by_option(user_option))
-        print('\n')
-        pprint.pprint(response)
+        print("\n")
+        print("\t" + get_header_by_option(user_option))
+        print("\n")
+        print_launches(response)
 
 
 def setup():
