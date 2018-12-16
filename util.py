@@ -2,6 +2,8 @@ import datetime
 
 
 def launch_to_string(launch):
+    """Return the launch's json as a string."""
+
     launch_date = datetime.datetime.strptime(
         launch["launch_date_utc"], "%Y-%m-%dT%H:%M:%S.%fZ"
     )
@@ -32,6 +34,8 @@ def launch_to_string(launch):
 
 
 def launches_to_string(launches):
+    """Return the list of launches's json as a string."""
+
     launches_str = []
     for launch in launches:
         launches_str.append(launch_to_string(launch))
