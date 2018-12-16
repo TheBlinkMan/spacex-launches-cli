@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import requests
 from util import launch_to_string, launches_to_string
+import copy
 
 API_URL = "https://api.spacexdata.com/v3/launches/{}"
 
@@ -35,6 +36,7 @@ class NextLaunchOption(IOption):
         self._output_interface.print("\n\tINFORMAÇÕES DO PRÓXIMO LANÇAMENTO")
         self._output_interface.print(launch_str)
 
+
 class LastLaunchOption(IOption):
     def get_last_launch(self):
         url = API_URL.format("latest")
@@ -45,3 +47,17 @@ class LastLaunchOption(IOption):
         launch_str = launch_to_string(launch)
         self._output_interface.print("\n\tINFORMAÇÕES DO ÚLTIMO LANÇAMENTO")
         self._output_interface.print(launch_str)
+
+
+class UpcomingLaunchesOption(IOption):
+    def get_upcoming_launches(self):
+        url = API_URL.format("upcoming")
+        query_params = copy.copy(PARAMS)
+        query_params["limit"] = 3
+        return requests.get(url, query_params).json()
+
+    def execute(self):
+        launches = self.get_upcoming_launches()
+        launches_str = launches_to_string(launches)
+        self._output_interface.print("\n\tINFORMAÇÕES DOS PRÓXIMOS LANÇAMENTOS")
+        self._output_interface.print(launches_str)
