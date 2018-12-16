@@ -57,7 +57,8 @@ class Menu(IMenu):
         help_message = ["\nO que você deseja visualizar?\n"]
 
         for key, value in self._options.items():
-            help_message.append(key + " - " + value.description())
+            assert isinstance(value.__doc__, str), "Define a docstring for option with identifier {}".format(key)
+            help_message.append(key + " - " + value.__doc__)
 
         self._io_interface.print("\n".join(help_message))
 

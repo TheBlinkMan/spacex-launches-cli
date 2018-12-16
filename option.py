@@ -15,19 +15,17 @@ class IOption:
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, description, output_interface):
-        self._description = description
+    def __init__(self, output_interface):
         self._output_interface = output_interface
 
     @abstractmethod
     def execute(self):
         pass
 
-    def description(self):
-        return self._description
-
 
 class NextLaunchOption(IOption):
+    """Próximo Lançamento"""
+
     def get_next_launch(self):
         """Return the next launch"""
         url = API_URL.format("next")
@@ -42,6 +40,8 @@ class NextLaunchOption(IOption):
 
 
 class LastLaunchOption(IOption):
+    """Último Lançamento"""
+
     def get_last_launch(self):
         """Return the last launch"""
         url = API_URL.format("latest")
@@ -56,6 +56,8 @@ class LastLaunchOption(IOption):
 
 
 class UpcomingLaunchesOption(IOption):
+    """Próximos Lançamentos"""
+
     def get_upcoming_launches(self):
         """Return a list of upcoming launches"""
         url = API_URL.format("upcoming")
@@ -72,6 +74,8 @@ class UpcomingLaunchesOption(IOption):
 
 
 class PastLaunchesOption(IOption):
+    """Lançamentos Passados"""
+
     def get_past_launches(self):
         """Return a list of past launches"""
         url = API_URL.format("past")

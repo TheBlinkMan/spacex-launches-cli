@@ -25,10 +25,10 @@ def create_app():
     io_interface = PythonSimpleIO()
 
     menu = Menu(io_interface)
-    menu.add_option("1", NextLaunchOption("Próximo Lançamento", io_interface))
-    menu.add_option("2", LastLaunchOption("Último Lançamento", io_interface))
-    menu.add_option("3", UpcomingLaunchesOption("Próximos Lançamentos", io_interface))
-    menu.add_option("4", PastLaunchesOption("Lançamentos Passados", io_interface))
+    menu.add_option("1", NextLaunchOption(io_interface))
+    menu.add_option("2", LastLaunchOption(io_interface))
+    menu.add_option("3", UpcomingLaunchesOption(io_interface))
+    menu.add_option("4", PastLaunchesOption(io_interface))
 
     app = App(menu)
     return app
