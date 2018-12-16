@@ -4,7 +4,12 @@ import pprint
 import signal
 import datetime
 from output_interface import PythonSimpleIO
-from option import NextLaunchOption, LastLaunchOption, UpcomingLaunchesOption
+from option import (
+    NextLaunchOption,
+    LastLaunchOption,
+    UpcomingLaunchesOption,
+    PastLaunchesOption,
+)
 from menu import Menu
 
 
@@ -99,6 +104,7 @@ def create_app():
     menu.add_option("1", NextLaunchOption("Próximo Lançamento", io_interface))
     menu.add_option("2", LastLaunchOption("Último Lançamento", io_interface))
     menu.add_option("3", UpcomingLaunchesOption("Próximos Lançamentos", io_interface))
+    menu.add_option("4", PastLaunchesOption("Lançamentos Passados", io_interface))
 
     app = App(menu)
     return app

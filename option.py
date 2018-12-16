@@ -61,3 +61,18 @@ class UpcomingLaunchesOption(IOption):
         launches_str = launches_to_string(launches)
         self._output_interface.print("\n\tINFORMAÇÕES DOS PRÓXIMOS LANÇAMENTOS")
         self._output_interface.print(launches_str)
+
+
+class PastLaunchesOption(IOption):
+    def get_past_launches(self):
+        url = API_URL.format("past")
+        query_params = copy.copy(PARAMS)
+        query_params["limit"] = 3
+        query_params["order"] = "desc"
+        return requests.get(url, query_params).json()
+
+    def execute(self):
+        launches = self.get_past_launches()
+        launches_str = launches_to_string(launches)
+        self._output_interface.print("\n\tINFORMAÇÕES DOS ÚLTIMOS LANÇAMENTOS")
+        self._output_interface.print(launches_str)
