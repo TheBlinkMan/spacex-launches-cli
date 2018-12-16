@@ -1,7 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from sys import exit
 
-class IInputInterface():
+
+class IInputInterface:
     """Declare the InputInterface Interface"""
 
     __metaclass__ = ABCMeta
@@ -10,13 +11,16 @@ class IInputInterface():
     def input(self, arg):
         pass
 
-class IOutputInterface():
+
+class IOutputInterface:
     """Declare the OutputInterface Interface"""
+
     __metaclass__ = ABCMeta
 
     @abstractmethod
     def print(self, arg):
         pass
+
 
 class PythonSimpleIO(IOutputInterface, IInputInterface):
     """Concrete IO that uses the standard python IO functions"""

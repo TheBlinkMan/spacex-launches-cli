@@ -12,6 +12,7 @@ from option import (
 )
 from menu import Menu
 
+
 class App:
     def __init__(self, menu):
         self.menu = menu
